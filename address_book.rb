@@ -13,7 +13,13 @@ class AddressBook
   end
 
   def search(name)
-
+    matches = []
+    entries.each do |entry| 
+      if entry.name =~ /#{name}/
+        matches.push(entry)
+      end
+    end
+    return matches
   end
 
   def add_from_csv(file_name)
