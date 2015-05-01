@@ -115,10 +115,10 @@ class Menu
     print "Search for Name: "
     name = $stdin.gets.chomp
     matches = @address_book.search(name)
-    matches.each { 
-	|match| puts match.to_s 
+    matches.each do |match|
+	puts match.to_s 
 	puts
-    }
+    end
   end
 
   def read_csv
