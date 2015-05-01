@@ -112,6 +112,13 @@ class Menu
   end
 
   def search_entries
+    print "Search for Name: "
+    name = $stdin.gets.chomp
+    match = @address_book.search(name)
+    if match
+	puts match.to_s 
+	puts
+    end
   end
 
   def read_csv
