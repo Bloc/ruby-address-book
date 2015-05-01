@@ -114,8 +114,8 @@ class Menu
   def search_entries
     print "Search for Name: "
     name = $stdin.gets.chomp
-    matches = @address_book.search(name)
-    matches.each do |match|
+    match = @address_book.search(name)
+    if match
 	puts match.to_s 
 	puts
     end
