@@ -47,6 +47,7 @@ class AddressBook
       @entries << Entry.new(row_hash["name"], row_hash["phone_number"], row_hash["email"])
     end
 
-    puts "#{new_entries} new entries added"
+    system "clear"
+    puts "#{new_entries} new entries added from #{file_name}"
   end
 end
