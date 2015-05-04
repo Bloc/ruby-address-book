@@ -8,6 +8,6 @@ class Entry
   end
 
   def to_s
-    "\n#{@name}\n#{@phone_number}\n#{@email}"
+    "\nName: #{@name}\nPhone Number: #{@phone_number}\nEmail: #{@email}"
   end
 end

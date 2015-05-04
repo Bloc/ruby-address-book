@@ -12,7 +12,7 @@ class Menu
     puts "1 - View all entries"
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
-    puts "4 - Read a CSV"
+    puts "4 - Import entries from a CSV"
     puts "5 - Exit"
     print "Enter your selection: "
 
@@ -26,7 +26,7 @@ class Menu
       create_entry
       run
     when 3
-      puts "You picked #{selection}"
+      system "clear"
       search_entries
       run
     when 4
@@ -37,14 +37,13 @@ class Menu
       exit(0)
       run
     else
-      puts "#{selection} is not a valid selection."
+      puts "#{selection} is not a valid input"
       run
     end
   end
 
   def entries_submenu(entry)
-    puts "\nEntry Submenu"
-    puts "n - next entry"
+    puts "\nn - next entry"
     puts "d - delete entry"
     puts "e - edit this entry"
     puts "m - return to main menu"
@@ -62,17 +61,52 @@ class Menu
       system "clear"
       run
     else
-      puts "#{selection} is not a valid selection."
-      entries_submenu
+      system "clear"
+      puts "#{selection} is not a valid input"
+      puts entry.to_s
+      entries_submenu(entry)
+    end
+  end
+
+  def search_submenu(entry)
+    puts "\nd - delete entry"
+    puts "e - edit this entry"
+    puts "m - return to main menu"
+
+    selection = $stdin.gets.chomp
+
+    case selection
+    when "d"
+      system "clear"
+      delete_entry(entry)
+      run
+    when "e"
+      edit_entry(entry)
+      system "clear"
+      puts "Updated Entry"
+      run
+    when "m"
+      system "clear"
+      run
+    else
+      system "clear"
+      puts "#{selection} is not a valid input"
+      puts entry.to_s
+      search_submenu(entry)
     end
   end
 
   def view_all_entries
-    @address_book.entries.each do |entry|
+    system "clear"
+
+    @address_book.entries.each_with_index do |entry, index|
+      system "clear"
+      puts "Entry #{index + 1}"
       puts entry.to_s
       entries_submenu(entry)
     end
 
+    system "clear"
     puts "End of entries"
   end
 
@@ -98,6 +132,7 @@ class Menu
   end
 
   def create_entry
+    system "clear"
     puts "New AddressBloc Entry"
     print "Name: "
     name = $stdin.gets.chomp
@@ -108,23 +143,37 @@ class Menu
 
     @address_book.add_entry(name, phone, email)
 
+    system "clear"
     puts "New entry created"
   end
 
   def search_entries
-    print "Search for Name: "
+    print "Search by name: "
     name = $stdin.gets.chomp
     match = @address_book.search(name)
     if match
-	puts match.to_s 
-	puts
+    	puts match.to_s 
+      search_submenu(match)
+    else
+      puts "No match found for "
     end
   end
 
   def read_csv
-    print "Enter csv to import: "
+    print "Enter CSV file to import: "
     file_name = $stdin.gets.chomp
 
-    @address_book.add_from_csv(file_name)
+    if file_name.empty?
+      system "clear"
+      puts "No CSV file read"
+      run
+    end
+
+    begin
+      @address_book.add_from_csv(file_name)
+    rescue
+      puts "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file"
+      read_csv
+    end
   end
 end
