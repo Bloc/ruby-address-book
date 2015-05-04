@@ -1,6 +1,6 @@
-require_relative "menu"
+require_relative "controllers/menu_controller"
 
-menu = Menu.new
+menu = MenuController.new
 system "clear"
 puts "\nWelcome to AddressBloc!"
 menu.run
