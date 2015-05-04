@@ -1,6 +1,6 @@
-require_relative "address_book"
+require_relative "../models/address_book"
 
-class Menu
+class MenuController
   attr_accessor :address_book
 
   def initialize
