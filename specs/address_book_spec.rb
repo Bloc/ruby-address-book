@@ -1,15 +1,15 @@
 require 'address_book'
 
-RSpec.describe AddressBook, "add_entry" do
+RSpec.describe AddressBook do
   book = AddressBook.new()
-  context "Testing adding an entry" do
-    it "Tests adding an entry to the AddressBook class" do
-      name = 'Rob Madden'
-      phone_number = '630.768.6995'
-      email = 'madden.rob@gmail.com'
+  context "testing adding an entry" do
+    it "tests adding an entry to the AddressBook class" do
+      name = 'Winston Smith'
+      phone_number = '999.999.9999'
+      email = 'winston@winston.com'
       book.add_entry(name, phone_number, email)
-      bookSize = book.entries.size
-      expect $bookSize == 1
+      book_size = book.entries.size
+      expect $book_size == 1
 
       entry = book.entries.at(0)
       expect entry.name.eql? name
@@ -18,33 +18,33 @@ RSpec.describe AddressBook, "add_entry" do
     end
   end
 
-  context "Testing add_from_csv" do
-    it "Tests the csv import process" do
+  context "testing add_from_csv" do
+    it "tests the csv import process" do
       book.add_from_csv("entries.csv")
-      bookSize = book.entries.size
-      expect $bookSize == 5
+      book_size = book.entries.size
+      expect $book_size == 5
 
-      entry = book.entries.at(0)
+      entry = book.entries.first()
       expect entry.name.eql? "Joe"
       expect entry.phone_number.eql? "291-291-9291"
       expect entry.email.eql? "joe@blocmail.com"
 
-      entry = book.entries.at(1)
+      entry = book.entries[1]
       expect entry.name.eql? "Sally"
       expect entry.phone_number.eql? "492-299-1931"
       expect entry.email.eql? "sally@blocmail.com"
 
-      entry = book.entries.at(2)
+      entry = book.entries[2]
       expect entry.name.eql? "Bob"
       expect entry.phone_number.eql? "839-822-7831"
       expect entry.email.eql? "bob@blocmail.com"
 
-      entry = book.entries.at(3)
+      entry = book.entries[3]
       expect entry.name.eql? "Bill"
       expect entry.phone_number.eql? "783-134-9771"
       expect entry.email.eql? "bill@blocmail.com"
 
-      entry = book.entries.at(4)
+      entry = book.entries[4]
       expect entry.name.eql? "Sussie"
       expect entry.phone_number.eql? "831-883-1099"
       expect entry.email.eql? "sussie@blocmail.com"
@@ -52,8 +52,8 @@ RSpec.describe AddressBook, "add_entry" do
     end
   end
 
-  context "Testing binary_search" do
-    it "Tests the binary_search method" do
+  context "testing binary_search" do
+    it "tests the binary_search method" do
       entry = book.binary_search("Bob")
       expect entry.name.eql? "Rob Madden"
       expect entry.phone_number.eql? "630.768.6995"
