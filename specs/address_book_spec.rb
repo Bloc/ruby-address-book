@@ -68,9 +68,7 @@ RSpec.describe AddressBook do
       expect entry.phone_number.eql? "839-822-7831"
       expect entry.email.eql? "bob@blocmail.com"
     end
-  end
 
-  describe ".binary_search" do
     it "searches AddressBook for non-existent entry" do
       book.add_from_csv("entries.csv")
       entry = book.binary_search("Dan")
