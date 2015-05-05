@@ -1,4 +1,3 @@
-require 'address_book'
 
 RSpec.describe AddressBook do
   book = AddressBook.new()
