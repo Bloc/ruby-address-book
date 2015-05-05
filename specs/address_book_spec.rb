@@ -1,7 +1,7 @@
 
 RSpec.describe AddressBook do
   book = AddressBook.new()
-  context "testing adding an entry" do
+  context "when adding an address" do
     it "tests adding an entry to the AddressBook class" do
       name = 'Winston Smith'
       phone_number = '999.999.9999'
@@ -17,7 +17,7 @@ RSpec.describe AddressBook do
     end
   end
 
-  context "testing add_from_csv" do
+  context "when importing the addresses from a csv" do
     it "tests the csv import process" do
       book.add_from_csv("entries.csv")
       book_size = book.entries.size
@@ -51,7 +51,7 @@ RSpec.describe AddressBook do
     end
   end
 
-  context "testing binary_search" do
+  context "when searching for an address" do
     it "tests the binary_search method" do
       entry = book.binary_search("Bob")
       expect entry.name.eql? "Rob Madden"
