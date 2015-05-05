@@ -27,7 +27,7 @@ RSpec.describe AddressBook, "add_entry" do
       entry = book.entries.at(0)
       expect entry.name.eql? "Joe"
       expect entry.phone_number.eql? "291-291-9291"
-      expect entry.email.eql? "joe@blocmail.com
+      expect entry.email.eql? "joe@blocmail.com"
 
       entry = book.entries.at(1)
       expect entry.name.eql? "Sally"
@@ -51,4 +51,14 @@ RSpec.describe AddressBook, "add_entry" do
 
     end
   end
+
+  context "Testing binary_search" do
+    it "Tests the binary_search method" do
+      entry = book.binary_search("Bob")
+      expect entry.name.eql? "Rob Madden"
+      expect entry.phone_number.eql? "630.768.6995"
+      expect entry.email.eql? "madden.rob@gmail.com"
+    end
+  end
+
 end
