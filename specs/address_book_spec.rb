@@ -10,7 +10,7 @@ RSpec.describe AddressBook do
       email = 'winston@winston.com'
       book.add_entry(name, phone_number, email)
       book_size = book.entries.size
-      entry = book.entries.at(0)
+      entry = book.entries.first()
 
       expect(book_size).to eql(1)
       expect entry.name.eql? name
