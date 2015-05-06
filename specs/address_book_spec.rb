@@ -1,6 +1,6 @@
 require_relative "../models/address_book"
 
-RSpec.describe AddressBook do
+RSpec.describe AddressBook < Test::Unit::TestCase do
   let(:book) { AddressBook.new }
 
   describe ".add_entry:" do
