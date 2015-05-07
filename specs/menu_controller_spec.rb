@@ -14,12 +14,12 @@ RSpec.describe MenuController do
     $stdin = stdin
   end
 
-  context ".read_csv():" do
+  context ".read_csv:" do
     it "reads the filename from STDIN and parses it, expects a CSV" do
       mock_stdin "entries.csv" do
-        controller.read_csv()
+        controller.read_csv
 
-        # We're only going to check the number of items that read_csv() parsed
+        # We're only going to check the number of items that read_csv parsed
         # as well as details of the first and last entry. We are assuming that
         # it parsed the middle entries correctly. This is the lazy way to do it.
         # We should probably check every entry and verify that parsing was proper
@@ -43,7 +43,7 @@ RSpec.describe MenuController do
     end
   end
 
-  context ".find_match()" do
+  context ".find_match" do
     it "searches the address book for a match" do
       mock_stdin "entries.csv" do
         controller.read_csv
@@ -67,7 +67,7 @@ RSpec.describe MenuController do
       end
 
       mock_stdin "entries.csv" do
-        controller.read_csv()
+        controller.read_csv
         mock_stdin "Joe" do
           entry = controller.find_match()
           expect entry.name == "Joe"

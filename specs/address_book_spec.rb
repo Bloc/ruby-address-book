@@ -1,4 +1,3 @@
-require_relative "../models/address_book"
 
 RSpec.describe AddressBook do
   let(:book) { AddressBook.new }
