@@ -30,7 +30,7 @@ class MenuController
       search_entries
       run
     when 4
-      read_csv()
+      read_csv
       run
     when 5
       puts "Good-bye!"
@@ -148,11 +148,10 @@ class MenuController
   end
 
   def find_match(name) 
-    match = @address_book.search(name)
-    return match
+    @address_book.search(name)
   end
 
-  def search_entries()
+  def search_entries
     print "Search by name: "
     name = $stdin.gets.chomp
     match = find_match(name)
@@ -165,7 +164,7 @@ class MenuController
     end
   end
 
-  def read_csv()
+  def read_csv
     $stdout.print "Enter CSV file to import: "
     file_name = $stdin.gets.chomp
 
@@ -179,7 +178,7 @@ class MenuController
       @address_book.add_from_csv(file_name)
     rescue
       $stdout.print "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file"
-      read_csv()
+      read_csv
     end
   end
 end

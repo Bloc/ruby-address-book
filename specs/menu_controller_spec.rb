@@ -29,16 +29,16 @@ RSpec.describe MenuController do
         expect controller.address_book.entries.count == 5
         
         # Check the first entry
-        first_entry = controller.address_book.entries.first()
-        expect first_entry.name == "Joe"
-        expect first_entry.phone_number = "291-291-9291"
-        expect first_entry.email = "joe@blocmail.com"
+        first_entry = controller.address_book.entries.first
+        expect first_entry.name.eql? "Joe"
+        expect first_entry.phone_number.eql? "291-291-9291"
+        expect first_entry.email.eql? "joe@blocmail.com"
 
         # Check the last entry
-        last_entry = controller.address_book.entries.last()
-        expect last_entry.name == "Sussie"
-        expect last_entry.phone_number = "831.883-1099"
-        expect last_entry.email = "sussie@blocmail.com"
+        last_entry = controller.address_book.entries.last
+        expect last_entry.name.eql? "Sussie"
+        expect last_entry.phone_number.eql? "831.883-1099"
+        expect last_entry.email.eql? "sussie@blocmail.com"
       end
     end
   end
@@ -46,11 +46,14 @@ RSpec.describe MenuController do
   context ".find_match()" do
     it "searches the address book for a match" do
       mock_stdin "entries.csv" do
-        controller.read_csv()
+        controller.read_csv
         match = controller.find_match("Sussie")
-        expect match.name == "Sussie"
-        expect match.phone_number = "831.883-1099"
-        expect match.email = "sussie@blocmail.com"
+        expect match.name.eql? "Sussie"
+        expect match.phone_number.eql? "831.883-1099"
+        expect match.email.eql? "sussie@blocmail.com"
+
+        match = controller.find_match("Fake User")
+        expect match.eql? nil
       end
     end
   end

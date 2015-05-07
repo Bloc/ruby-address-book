@@ -1,6 +1,6 @@
 require_relative "../models/address_book"
 
-RSpec.describe AddressBook < Test::Unit::TestCase do
+RSpec.describe AddressBook do
   let(:book) { AddressBook.new }
 
   describe ".add_entry:" do
@@ -10,7 +10,7 @@ RSpec.describe AddressBook < Test::Unit::TestCase do
       email = 'winston@winston.com'
       book.add_entry(name, phone_number, email)
       book_size = book.entries.size
-      entry = book.entries.first()
+      entry = book.entries[0]
 
       expect(book_size).to eql(1)
       expect entry.name.eql? name
@@ -25,10 +25,10 @@ RSpec.describe AddressBook < Test::Unit::TestCase do
       book_size = book.entries.size
 
       # Check the size of the Address Book
-      expect(book_size).to eql(5)
+      expect book_size.eql? 5
 
       # Check the first entry
-      entry = book.entries.first()
+      entry = book.entries[0]
       expect entry.name.eql? "Joe"
       expect entry.phone_number.eql? "291-291-9291"
       expect entry.email.eql? "joe@blocmail.com"
@@ -63,7 +63,7 @@ RSpec.describe AddressBook < Test::Unit::TestCase do
     it "searches AddressBook for existent entry" do
       book.add_from_csv("entries.csv")
       entry = book.binary_search("Bob")
-      expect(entry.instance_of?(Entry))
+      expect entry.instance_of?(Entry)
       expect entry.name.eql? "Bob"
       expect entry.phone_number.eql? "839-822-7831"
       expect entry.email.eql? "bob@blocmail.com"
