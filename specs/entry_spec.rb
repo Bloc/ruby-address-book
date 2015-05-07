@@ -1,7 +1,7 @@
 require 'entry'
 
 RSpec.describe Entry, "#to_s" do
-  let(:entry) { Entry.new('Rob Madden', '630.768.6995', 'madden.rob@gmail.com') }
+  let(:entry) { Entry.new('Joe', '291-291-9291', 'joe@blocmail.com') }
 
   context "when deserializing an address" do
     it "prints an entry as a string" do
