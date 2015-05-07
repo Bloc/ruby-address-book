@@ -30,7 +30,7 @@ class MenuController
       search_entries
       run
     when 4
-      read_csv($stdin)
+      read_csv()
       run
     when 5
       puts "Good-bye!"
@@ -147,10 +147,16 @@ class MenuController
     puts "New entry created"
   end
 
+  def find_match(name) 
+    match = @address_book.search(name)
+    return match
+  end
+
   def search_entries()
     print "Search by name: "
     name = $stdin.gets.chomp
-    match = @address_book.search(name)
+    match = find_match(name)
+
     if match
       $stdout.print match.to_s 
       search_submenu(match)
@@ -173,7 +179,7 @@ class MenuController
       @address_book.add_from_csv(file_name)
     rescue
       $stdout.print "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file"
-      read_csv($stdin)
+      read_csv()
     end
   end
 end
