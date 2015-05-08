@@ -147,32 +147,37 @@ class MenuController
     puts "New entry created"
   end
 
+  def find_match(name) 
+    @address_book.search(name)
+  end
+
   def search_entries
     print "Search by name: "
     name = $stdin.gets.chomp
-    match = @address_book.search(name)
+    match = find_match(name)
+
     if match
-    	puts match.to_s 
+      $stdout.print match.to_s 
       search_submenu(match)
     else
-      puts "No match found for "
+      $stdout.print "No match found for "
     end
   end
 
   def read_csv
-    print "Enter CSV file to import: "
+    $stdout.print "Enter CSV file to import: "
     file_name = $stdin.gets.chomp
 
     if file_name.empty?
       system "clear"
-      puts "No CSV file read"
+      $stdout.print "No CSV file read"
       run
     end
 
     begin
       @address_book.add_from_csv(file_name)
     rescue
-      puts "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file"
+      $stdout.print "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file"
       read_csv
     end
   end
