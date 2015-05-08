@@ -58,26 +58,4 @@ RSpec.describe MenuController do
     end
   end
 
-=begin 
-  context ".search_entries()" do
-    it "searches the address book by name from user input" do
-      mock_stdin "This entry doesn't exist!" do
-        non_existent_entry = controller.search_entries()
-        expect non_existent_entry == nil
-      end
-
-      mock_stdin "entries.csv" do
-        controller.read_csv
-        mock_stdin "Joe" do
-          entry = controller.find_match()
-          expect entry.name == "Joe"
-          expect entry.phone_number = "291-291-9291"
-          expect entry.email = "joe@blocmail.com"
-        end
-      end
-
-    end
-  end
-=end
-
 end # End RSpec.describe
