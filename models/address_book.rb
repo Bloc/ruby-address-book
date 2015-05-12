@@ -1,9 +1,9 @@
 # This class holds the Address Book data model which consists of a
-# running list of entries
+# running list of entries.
 #
 # Author::    This is you.
 # Copyright:: Copyright (c) 2015 by you.
-# License::   Distributes under the same terms as Ruby
+# License::   Distributes under the same terms as Ruby.
 
 require 'csv'  
 require_relative "entry"
@@ -19,6 +19,20 @@ class AddressBook
   # Add an entry to the Address Book (running list of entries)
   def add_entry(name, phone, email)
     @entries << Entry.new(name, phone, email)
+  end
+
+  # Pull data in from a CSV (comma separated values) file
+  def add_from_csv(file_name)
+    csv_text = File.read(file_name)
+    csv = CSV.parse(csv_text, headers: true)
+    new_entries = csv.count
+    csv.each do |row|
+      row_hash = row.to_hash
+      @entries << Entry.new(row_hash["name"], row_hash["phone_number"], row_hash["email"])
+    end
+
+    system "clear"
+    puts "#{new_entries} new entries added from #{file_name}"
   end
 
   # Searches the Address Book for a specific entry
@@ -50,17 +64,4 @@ class AddressBook
     return binary_search(name)
   end
   
-  # Pull data in from a CSV (comma separated values) file
-  def add_from_csv(file_name)
-    csv_text = File.read(file_name)
-    csv = CSV.parse(csv_text, headers: true)
-    new_entries = csv.count
-    csv.each do |row|
-      row_hash = row.to_hash
-      @entries << Entry.new(row_hash["name"], row_hash["phone_number"], row_hash["email"])
-    end
-
-    system "clear"
-    puts "#{new_entries} new entries added from #{file_name}"
-  end
 end
