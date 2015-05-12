@@ -1,17 +1,27 @@
+# This class holds the Address Book data model which consists of a
+# running list of entries
+#
+# Author::    This is you.
+# Copyright:: Copyright (c) 2015 by you.
+# License::   Distributes under the same terms as Ruby
+
 require 'csv'  
 require_relative "entry"
 
 class AddressBook
   attr_accessor :entries
 
+  # This is the de-factor initializer 
   def initialize
     @entries = []
   end
 
+  # Add an entry to the Address Book (running list of entries)
   def add_entry(name, phone, email)
     @entries << Entry.new(name, phone, email)
   end
 
+  # Searches the Address Book for a specific entry
   def binary_search(name)
     lower = 0
     upper = entries.length - 1
@@ -33,11 +43,13 @@ class AddressBook
     return nil
   end
 
+  # Wraps the binary_search method 
   def search(name)
     # Maybe we have more than one implementation of search? 
     return binary_search(name)
   end
-
+  
+  # Pull data in from a CSV (comma separated values) file
   def add_from_csv(file_name)
     csv_text = File.read(file_name)
     csv = CSV.parse(csv_text, headers: true)

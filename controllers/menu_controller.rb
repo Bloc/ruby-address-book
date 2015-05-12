@@ -6,18 +6,12 @@
 # Copyright:: Copyright (c) 2015 by you.
 # License::   Distributes under the same terms as Ruby
 
-# This class holds the letters in the original
-# word or phrase. The is_anagram? method allows us
-# to test if subsequent words or phrases are
-# anagrams of the original.
-
 require_relative "../models/address_book"
 
 class MenuController
   attr_accessor :address_book
 
-  # This is the initializer and will run when the MenuController
-  # class is instantiated
+  # This is defactor initializer
   def initialize
     @address_book = AddressBook.new
   end
@@ -76,7 +70,7 @@ class MenuController
   end
 
   # Helper method to parse the input for the submenu
-  def parse_submenu_input
+  def parse_submenu_input(selection, entry)
     case selection
     when "n"
     when "d"
@@ -99,11 +93,11 @@ class MenuController
   def entries_submenu(entry)
     print_submenu
     selection = $stdin.gets.chomp
-    parse_submenu_input(selection)
+    parse_submenu_input(selection, entry)
   end
 
   # Responsible for dealing with input submitted from the submenu
-  def parse_submenu_input
+  def parse_submenu_input(selection, entry)
     case selection
     when "d"
       system "clear"
@@ -125,15 +119,17 @@ class MenuController
     end
   end
 
+  # Prints the sub menu options and then parses the input from the user
   def search_submenu(entry)
     puts "\nd - delete entry"
     puts "e - edit this entry"
     puts "m - return to main menu"
 
     selection = $stdin.gets.chomp
-    parse_submenu_input(selection)
+    parse_submenu_input(selection, entry)
   end
 
+  # Dump the contents of the AddressBook to 
   def view_all_entries
     system "clear"
 
@@ -148,6 +144,7 @@ class MenuController
     puts "End of entries"
   end
 
+  # Get which fields to update from the user and edit an Entry in the Address Book
   def edit_entry(entry)
     print "Updated name: "
     name = $stdin.gets.chomp
@@ -164,11 +161,13 @@ class MenuController
     puts entry
   end
 
+  # Delete an entry from the address book
   def delete_entry(entry)
     @address_book.entries.delete(entry)
     puts "#{entry.name} has been deleted"
   end
 
+  # Create a new entry and add it to the Address Book
   def create_entry
     system "clear"
     puts "New AddressBloc Entry"
@@ -185,10 +184,12 @@ class MenuController
     puts "New entry created"
   end
 
+  # Search the address book for a specific name
   def find_match(name) 
     @address_book.search(name)
   end
 
+  # The Address book by first name
   def search_entries
     print "Search by name: "
     name = $stdin.gets.chomp
@@ -202,6 +203,7 @@ class MenuController
     end
   end
 
+  # Read a CSV file in by name
   def read_csv
     $stdout.print "Enter CSV file to import: "
     file_name = $stdin.gets.chomp
