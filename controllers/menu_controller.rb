@@ -62,7 +62,7 @@ class MenuController
   end
 
   # Helper method to simply print the submenu
-  def print_submenu
+  def print_entries_submenu
     puts "\nn - next entry"
     puts "d - delete entry"
     puts "e - edit this entry"
@@ -77,7 +77,7 @@ class MenuController
       delete_entry(entry)
     when "e"
       edit_entry(entry)
-      entries_submenu(entry)
+      display_entries_submenu(entry)
     when "m"
       system "clear"
       run
@@ -85,22 +85,27 @@ class MenuController
       system "clear"
       puts "#{selection} is not a valid input"
       puts entry.to_s
-      entries_submenu(entry)
+      display_entries_submenu(entry)
     end
   end
 
   # Wrapper function to handle all sub-menu related stuff
-  def entries_submenu(entry)
-    print_submenu
+  def display_entries_submenu(entry)
+    print_entries_submenu
     selection = $stdin.gets.chomp
     parse_submenu_input(selection, entry)
   end
 
-  # Prints the sub menu options and then parses the input from the user
-  def search_submenu(entry)
+  # Print out the menu which display after option 3 (search for entry) is called
+  def print_search_submenu
     puts "\nd - delete entry"
     puts "e - edit this entry"
     puts "m - return to main menu"
+  end
+
+  # Prints the search sub menu options and then parses the input from the user
+  def display_search_submenu(entry)
+    print_search_submenu
 
     selection = $stdin.gets.chomp
     case selection
@@ -120,7 +125,7 @@ class MenuController
       system "clear"
       puts "#{selection} is not a valid input for the submenu"
       puts entry.to_s
-      search_submenu(entry)
+      display_search_submenu(entry)
     end
   end
 
@@ -132,7 +137,7 @@ class MenuController
       system "clear"
       puts "Entry #{index + 1}"
       puts entry.to_s
-      entries_submenu(entry)
+      display_entries_submenu(entry)
     end
 
     system "clear"
@@ -188,12 +193,11 @@ class MenuController
   def search_entries
     print "Search by name: "
     name = $stdin.gets.chomp
-    puts name
     match = find_match(name)
 
     if match
       $stdout.print match.to_s 
-      search_submenu(match)
+      display_search_submenu(match)
     else
       $stdout.print "No match found for "
     end
