@@ -1,13 +1,30 @@
+# This class acts as the controller for menu. It will
+# take input from the user and will figure out what to 
+# spit out on the command line.
+#
+# Author::    This is you.
+# Copyright:: Copyright (c) 2015 by you.
+# License::   Distributes under the same terms as Ruby
+
+# This class holds the letters in the original
+# word or phrase. The is_anagram? method allows us
+# to test if subsequent words or phrases are
+# anagrams of the original.
+
 require_relative "../models/address_book"
 
 class MenuController
   attr_accessor :address_book
 
+  # This is the initializer and will run when the MenuController
+  # class is instantiated
   def initialize
     @address_book = AddressBook.new
   end
 
-  def run
+  # This is a simple helper function to display the menu
+  # when the user picks an option using the keyboard
+  def print_main_menu
     puts "Main Menu - #{@address_book.entries.count} entries"
     puts "1 - View all entries"
     puts "2 - Create an entry"
@@ -15,9 +32,10 @@ class MenuController
     puts "4 - Import entries from a CSV"
     puts "5 - Exit"
     print "Enter your selection: "
+  end
 
-    selection = $stdin.gets.chomp.to_i
-
+  # This is called by the run method directly
+  def parse_input(selection)
     case selection
     when 1
       view_all_entries
@@ -42,14 +60,23 @@ class MenuController
     end
   end
 
-  def entries_submenu(entry)
+  # Called after the user inputs a selection
+  def run
+    print_main_menu
+    selection = $stdin.gets.chomp.to_i
+    parse_input(selection)
+  end
+
+  # Helper method to simply print the submenu
+  def print_submenu
     puts "\nn - next entry"
     puts "d - delete entry"
     puts "e - edit this entry"
     puts "m - return to main menu"
+  end
 
-    selection = $stdin.gets.chomp
-
+  # Helper method to parse the input for the submenu
+  def parse_submenu_input
     case selection
     when "n"
     when "d"
@@ -68,13 +95,15 @@ class MenuController
     end
   end
 
-  def search_submenu(entry)
-    puts "\nd - delete entry"
-    puts "e - edit this entry"
-    puts "m - return to main menu"
-
+  # Wrapper function to handle all sub-menu related stuff
+  def entries_submenu(entry)
+    print_submenu
     selection = $stdin.gets.chomp
+    parse_submenu_input(selection)
+  end
 
+  # Responsible for dealing with input submitted from the submenu
+  def parse_submenu_input
     case selection
     when "d"
       system "clear"
@@ -94,6 +123,15 @@ class MenuController
       puts entry.to_s
       search_submenu(entry)
     end
+  end
+
+  def search_submenu(entry)
+    puts "\nd - delete entry"
+    puts "e - edit this entry"
+    puts "m - return to main menu"
+
+    selection = $stdin.gets.chomp
+    parse_submenu_input(selection)
   end
 
   def view_all_entries
