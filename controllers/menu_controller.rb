@@ -17,7 +17,6 @@ class MenuController
   end
 
   # This is a simple helper function to display the menu
-  # when the user picks an option using the keyboard
   def print_main_menu
     puts "Main Menu - #{@address_book.entries.count} entries"
     puts "1 - View all entries"
