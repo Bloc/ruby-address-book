@@ -96,8 +96,13 @@ class MenuController
     parse_submenu_input(selection, entry)
   end
 
-  # Responsible for dealing with input submitted from the submenu
-  def parse_submenu_input(selection, entry)
+  # Prints the sub menu options and then parses the input from the user
+  def search_submenu(entry)
+    puts "\nd - delete entry"
+    puts "e - edit this entry"
+    puts "m - return to main menu"
+
+    selection = $stdin.gets.chomp
     case selection
     when "d"
       system "clear"
@@ -113,20 +118,10 @@ class MenuController
       run
     else
       system "clear"
-      puts "#{selection} is not a valid input"
+      puts "#{selection} is not a valid input for the submenu"
       puts entry.to_s
       search_submenu(entry)
     end
-  end
-
-  # Prints the sub menu options and then parses the input from the user
-  def search_submenu(entry)
-    puts "\nd - delete entry"
-    puts "e - edit this entry"
-    puts "m - return to main menu"
-
-    selection = $stdin.gets.chomp
-    parse_submenu_input(selection, entry)
   end
 
   # Dump the contents of the AddressBook to 
@@ -193,6 +188,7 @@ class MenuController
   def search_entries
     print "Search by name: "
     name = $stdin.gets.chomp
+    puts name
     match = find_match(name)
 
     if match

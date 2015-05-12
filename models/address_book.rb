@@ -23,6 +23,7 @@ class AddressBook
 
   # Searches the Address Book for a specific entry
   def binary_search(name)
+    puts name
     lower = 0
     upper = entries.length - 1
 
