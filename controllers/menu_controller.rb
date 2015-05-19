@@ -11,7 +11,7 @@ require_relative "../models/address_book"
 class MenuController
   attr_accessor :address_book
 
-  # This is defactor initializer
+  # This is standard initializer
   def initialize
     @address_book = AddressBook.new
   end
@@ -128,7 +128,7 @@ class MenuController
     end
   end
 
-  # Dump the contents of the AddressBook to 
+  # Print the contents of the AddressBook to the screen
   def view_all_entries
     system "clear"
 
@@ -188,7 +188,7 @@ class MenuController
     @address_book.search(name)
   end
 
-  # The Address book by first name
+  # Search Address Book by first name
   def search_entries
     print "Search by name: "
     name = $stdin.gets.chomp
